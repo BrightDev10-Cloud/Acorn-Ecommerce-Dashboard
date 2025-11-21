@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adudu E-commerce Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">
+                     <img src="assets/Logo.png" alt="logo" height="20px">
+                    </span>
+                    <span class="brand-name">Acorn</span>
+                </div>
+                <button class="collapse-btn" id="collapse-btn">
+                    <img src="assets/vuesax/linear/sidebar-left.svg" alt="Collapse" width="24" height="24">
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-target="orders">
+                    <i class="ph ph-clipboard-text"></i>
+                    <span>Order</span>
+                </a>
+                <a href="#" class="nav-item" data-target="invoices">
+                    <i class="ph ph-receipt"></i>
+                    <span>Invoices</span>
+                </a>
+                <a href="#" class="nav-item" data-target="cart-abandonment">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span>Cart Abandonment</span>
+                </a>
+                <a href="#" class="nav-item" data-target="listing">
+                    <i class="ph ph-list-dashes"></i>
+                    <span>Listing</span>
+                </a>
+                <a href="#" class="nav-item" data-target="admin">
+                    <i class="ph ph-user"></i>
+                    <span>Admin</span>
+                </a>
+                <a href="#" class="nav-item" data-target="settings">
+                    <i class="ph ph-gear"></i>
+                    <span>Setting</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-section">
+                <span class="section-title">Links</span>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item" data-target="community">
+                        <i class="ph ph-users"></i>
+                        <span>Community</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="tutorial">
+                        <i class="ph ph-play-circle"></i>
+                        <span>Tutorial</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Elijah+Scott&background=random" alt="Elijah Scott">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Elijah Scott</span>
+                    <span class="user-email">elijahscott@gmail.com</span>
+                </div>
+                <button class="user-menu-btn"><i class="ph ph-dots-three"></i></button>
+            </div>
+            
+            <button class="logout-btn">
+                <i class="ph ph-sign-out"></i>
+                <span>Logout</span>
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-primary" id="create-btn" style="display: none;">+ Create order</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div id="content-area">
+                <!-- Dashboard Overview View -->
+                <div id="view-dashboard" class="view-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-revenue">
+                                <i class="ph ph-currency-dollar"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Revenue</span>
+                                <h3 class="stat-value" id="total-revenue">$0.00</h3>
+                                <span class="stat-change positive">+12.5% <span class="text-muted">vs last month</span></span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-orders">
+                                <i class="ph ph-shopping-bag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Orders</span>
+                                <h3 class="stat-value" id="total-orders">0</h3>
+                                <span class="stat-change positive">+8.2% <span class="text-muted">vs last month</span></span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-pending">
+                                <i class="ph ph-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Pending Invoices</span>
+                                <h3 class="stat-value" id="pending-invoices">0</h3>
+                                <span class="stat-change negative">2 overdue</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-abandoned">
+                                <i class="ph ph-shopping-cart-simple"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Abandoned Cart</span>
+                                <h3 class="stat-value" id="abandoned-value">$0.00</h3>
+                                <span class="stat-change neutral">5% recovery rate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Revenue Overview</h3>
+                                <select class="chart-filter">
+                                    <option>This Year</option>
+                                    <option>Last Year</option>
+                                </select>
+                            </div>
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Order Status</h3>
+                            </div>
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity-section">
+                        <div class="section-header">
+                            <h3>Recent Orders</h3>
+                            <a href="#" class="view-all-link" onclick="document.querySelector('[data-target=orders]').click()">View All</a>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>CUSTOMER</th>
+                                        <th>STATUS</th>
+                                        <th>AMOUNT</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-orders-body">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders View -->
+                <div id="view-orders" class="view-section">
+                    <div class="dashboard-grid">
+                        <div class="main-panel">
+                            <div class="filters-bar">
+                                <div class="search-group">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Order ID</option>
+                                            <option>Customer</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-input-wrapper">
+                                        <i class="ph ph-magnifying-glass"></i>
+                                        <input type="text" placeholder="Search">
+                                    </div>
+                                </div>
+                                <div class="filter-group" style="display: flex; gap: 1rem; align-items: center;">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Status</option>
+                                            <option>New</option>
+                                            <option>Draft</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab active">All</div>
+                                        <div class="filter-tab">Pending</div>
+                                        <div class="filter-tab">Shipped</div>
+                                        <div class="filter-tab">Canceled</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ORDER ID</th>
+                                            <th>ORDER NUMBER</th>
+                                            <th>STATUS</th>
+                                            <th>ITEM</th>
+                                            <th>CUSTOMER NAME</th>
+                                            <th>SHIPPING SERVICE</th>
+                                            <th>TRACKING CODE</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orders-table-body">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination">
+                                <span class="results-count">Showing 1 to 10 of 97 results</span>
+                                <div class="pagination-controls">
+                                    <button class="page-btn"><i class="ph ph-caret-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <span class="page-ellipsis">...</span>
+                                    <button class="page-btn">8</button>
+                                    <button class="page-btn">9</button>
+                                    <button class="page-btn">10</button>
+                                    <button class="page-btn"><i class="ph ph-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aside class="details-sidebar" id="order-details-sidebar" style="display: none;">
+                            <h3>Customer Info</h3>
+                            <div id="order-preview" class="preview-card">
+                                <p class="text-muted">Select an order to view details</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- Invoices View -->
+                <div id="view-invoices" class="view-section">
+                    <div class="dashboard-grid">
+                        <div class="main-panel">
+                            <div class="filters-bar">
+                                <div class="search-group">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Invoice ID</option>
+                                            <option>Client</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-input-wrapper">
+                                        <i class="ph ph-magnifying-glass"></i>
+                                        <input type="text" placeholder="Search invoices...">
+                                    </div>
+                                </div>
+                                <div class="filter-group" style="display: flex; gap: 1rem; align-items: center;">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Status</option>
+                                            <option>Paid</option>
+                                            <option>Pending</option>
+                                            <option>Overdue</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab active">All</div>
+                                        <div class="filter-tab">Paid</div>
+                                        <div class="filter-tab">Pending</div>
+                                        <div class="filter-tab">Overdue</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>INVOICE ID</th>
+                                            <th>CLIENT</th>
+                                            <th>DATE</th>
+                                            <th>STATUS</th>
+                                            <th>AMOUNT</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoices-table-body">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination">
+                                <span class="results-count">Showing 1 to 10 of 45 results</span>
+                                <div class="pagination-controls">
+                                    <button class="page-btn"><i class="ph ph-caret-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <button class="page-btn"><i class="ph ph-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aside class="details-sidebar" id="invoice-details-sidebar" style="display: none;">
+                            <h3>Invoice Details</h3>
+                            <div id="invoice-preview" class="preview-card">
+                                <p class="text-muted">Select an invoice to view details</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- Cart Abandonment View -->
+                <div id="view-cart-abandonment" class="view-section">
+                    <div class="dashboard-grid">
+                        <div class="main-panel">
+                            <div class="filters-bar">
+                                <div class="search-group">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Customer</option>
+                                            <option>Product</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-input-wrapper">
+                                        <i class="ph ph-magnifying-glass"></i>
+                                        <input type="text" placeholder="Search abandoned carts...">
+                                    </div>
+                                </div>
+                                <div class="filter-group" style="display: flex; gap: 1rem; align-items: center;">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Status</option>
+                                            <option>Pending</option>
+                                            <option>Email Sent</option>
+                                            <option>Recovered</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab active">All</div>
+                                        <div class="filter-tab">High Value</div>
+                                        <div class="filter-tab">Recoverable</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>CUSTOMER</th>
+                                            <th>PRODUCTS</th>
+                                            <th>VALUE</th>
+                                            <th>TIME AGO</th>
+                                            <th>STATUS</th>
+                                            <th>RECOVERY CHANCE</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart-table-body">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination">
+                                <span class="results-count">Showing 1 to 7 of 24 results</span>
+                                <div class="pagination-controls">
+                                    <button class="page-btn"><i class="ph ph-caret-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn"><i class="ph ph-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aside class="details-sidebar" id="cart-details-sidebar" style="display: none;">
+                            <h3>Cart Details</h3>
+                            <div id="cart-preview" class="preview-card">
+                                <p class="text-muted">Select a cart to view details</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- Listing View -->
+                <div id="view-listing" class="view-section">
+                    <div class="dashboard-grid">
+                        <div class="main-panel">
+                            <div class="filters-bar">
+                                <div class="search-group">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Product Name</option>
+                                            <option>SKU</option>
+                                            <option>Category</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-input-wrapper">
+                                        <i class="ph ph-magnifying-glass"></i>
+                                        <input type="text" placeholder="Search products...">
+                                    </div>
+                                </div>
+                                <div class="filter-group" style="display: flex; gap: 1rem; align-items: center;">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Category</option>
+                                            <option>Electronics</option>
+                                            <option>Clothing</option>
+                                            <option>Home</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab active">All</div>
+                                        <div class="filter-tab">Active</div>
+                                        <div class="filter-tab">Draft</div>
+                                        <div class="filter-tab">Out of Stock</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>PRODUCT</th>
+                                            <th>SKU</th>
+                                            <th>CATEGORY</th>
+                                            <th>PRICE</th>
+                                            <th>STOCK</th>
+                                            <th>STATUS</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listing-table-body">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination">
+                                <span class="results-count">Showing 1 to 8 of 64 results</span>
+                                <div class="pagination-controls">
+                                    <button class="page-btn"><i class="ph ph-caret-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn">3</button>
+                                    <button class="page-btn"><i class="ph ph-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aside class="details-sidebar" id="listing-details-sidebar" style="display: none;">
+                            <h3>Product Details</h3>
+                            <div id="listing-preview" class="preview-card">
+                                <p class="text-muted">Select a product to view details</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- Admin View -->
+                <div id="view-admin" class="view-section">
+                    <div class="dashboard-grid">
+                        <div class="main-panel">
+                            <div class="filters-bar">
+                                <div class="search-group">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Name</option>
+                                            <option>Email</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-input-wrapper">
+                                        <i class="ph ph-magnifying-glass"></i>
+                                        <input type="text" placeholder="Search admins...">
+                                    </div>
+                                </div>
+                                <div class="filter-group" style="display: flex; gap: 1rem; align-items: center;">
+                                    <div class="select-wrapper">
+                                        <select>
+                                            <option>Role</option>
+                                            <option>Super Admin</option>
+                                            <option>Editor</option>
+                                            <option>Viewer</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab active">All</div>
+                                        <div class="filter-tab">Active</div>
+                                        <div class="filter-tab">Inactive</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>USER</th>
+                                            <th>ROLE</th>
+                                            <th>EMAIL</th>
+                                            <th>LAST ACTIVE</th>
+                                            <th>STATUS</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-table-body">
+                                        <!-- Populated by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="pagination">
+                                <span class="results-count">Showing 1 to 5 of 12 results</span>
+                                <div class="pagination-controls">
+                                    <button class="page-btn"><i class="ph ph-caret-left"></i></button>
+                                    <button class="page-btn active">1</button>
+                                    <button class="page-btn">2</button>
+                                    <button class="page-btn"><i class="ph ph-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <aside class="details-sidebar" id="admin-details-sidebar" style="display: none;">
+                            <h3>Admin Details</h3>
+                            <div id="admin-preview" class="preview-card">
+                                <p class="text-muted">Select an admin to view details</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="view-settings" class="view-section">
+                    <div class="settings-container">
+                        <div class="settings-sidebar">
+                            <div class="settings-nav-item active" onclick="switchSettingsTab('profile')">
+                                <i class="ph ph-user"></i>
+                                <span>Profile Settings</span>
+                            </div>
+                            <div class="settings-nav-item" onclick="switchSettingsTab('notifications')">
+                                <i class="ph ph-bell"></i>
+                                <span>Notifications</span>
+                            </div>
+                            <div class="settings-nav-item" onclick="switchSettingsTab('security')">
+                                <i class="ph ph-lock"></i>
+                                <span>Security</span>
+                            </div>
+                            <div class="settings-nav-item" onclick="switchSettingsTab('billing')">
+                                <i class="ph ph-credit-card"></i>
+                                <span>Billing</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-content">
+                            <!-- Profile Settings -->
+                            <div id="settings-profile" class="settings-tab-content active">
+                                <h3>Profile Information</h3>
+                                <p class="text-muted" style="text-align: left; margin-top: 0;">Update your account's profile information and email address.</p>
+                                
+                                <div class="form-group">
+                                    <label>Photo</label>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <img src="https://ui-avatars.com/api/?name=Elijah+Scott&background=random" style="width: 64px; height: 64px; border-radius: 50%;">
+                                        <button class="btn-secondary">Change</button>
+                                        <button class="btn-text-danger">Remove</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" value="Elijah">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" value="Scott">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" value="elijahscott@gmail.com">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Bio</label>
+                                    <textarea rows="4">Product Designer based in San Francisco.</textarea>
+                                    <span class="help-text">Brief description for your profile.</span>
+                                </div>
+
+                                <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+                                    <button class="btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+
+                            <!-- Notifications Settings -->
+                            <div id="settings-notifications" class="settings-tab-content">
+                                <h3>Notifications</h3>
+                                <p class="text-muted" style="text-align: left; margin-top: 0;">Manage how you receive notifications.</p>
+                                
+                                <div class="notification-group">
+                                    <div class="notification-item">
+                                        <div>
+                                            <h4>Email Notifications</h4>
+                                            <p>Receive emails about your account activity.</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div>
+                                            <h4>Push Notifications</h4>
+                                            <p>Receive push notifications on your device.</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div>
+                                            <h4>Order Updates</h4>
+                                            <p>Get notified when an order status changes.</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Security Settings -->
+                            <div id="settings-security" class="settings-tab-content">
+                                <h3>Security</h3>
+                                <p class="text-muted" style="text-align: left; margin-top: 0;">Update your password and security settings.</p>
+                                
+                                <div style="margin-bottom: 2rem;">
+                                    <h4 style="font-size: 1rem; margin-bottom: 1rem;">Change Password</h4>
+                                    <div class="form-group">
+                                        <label>Current Password</label>
+                                        <input type="password" placeholder="Enter current password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input type="password" placeholder="Enter new password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm New Password</label>
+                                        <input type="password" placeholder="Confirm new password">
+                                    </div>
+                                    <div style="display: flex; justify-content: flex-end;">
+                                        <button class="btn-primary">Update Password</button>
+                                    </div>
+                                </div>
+
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                                    <div class="notification-item" style="border-bottom: none; padding-bottom: 0;">
+                                        <div>
+                                            <h4>Two-Factor Authentication</h4>
+                                            <p>Add an extra layer of security to your account.</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Billing Settings -->
+                            <div id="settings-billing" class="settings-tab-content">
+                                <h3>Billing & Subscription</h3>
+                                <p class="text-muted" style="text-align: left; margin-top: 0;">Manage your payment methods and billing information.</p>
+                                
+                                <!-- Current Plan -->
+                                <div style="margin-bottom: 2rem;">
+                                    <h4 style="font-size: 1rem; margin-bottom: 1rem;">Current Plan</h4>
+                                    <div style="border: 2px solid var(--primary-color); border-radius: 0.5rem; padding: 1.5rem; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                                            <div>
+                                                <h4 style="font-size: 1.25rem; margin-bottom: 0.25rem; color: var(--text-main);">Pro Plan</h4>
+                                                <p style="color: var(--text-secondary); margin: 0;">Billed monthly</p>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <h3 style="margin: 0; color: var(--primary-color);">$49.99<span style="font-size: 0.875rem; color: var(--text-secondary);">/month</span></h3>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+                                            <button class="btn-primary">Upgrade Plan</button>
+                                            <button class="btn-secondary">Cancel Subscription</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Methods -->
+                                <div style="margin-bottom: 2rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                        <h4 style="font-size: 1rem; margin: 0;">Payment Methods</h4>
+                                        <button class="btn-secondary">+ Add New</button>
+                                    </div>
+                                    
+                                    <!-- Credit Card -->
+                                    <div style="border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 48px; height: 32px; background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.75rem;">VISA</div>
+                                            <div>
+                                                <p style="margin: 0; font-weight: 500; color: var(--text-main);">•••• •••• •••• 4242</p>
+                                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Expires 12/25</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                            <span style="background: #D1FAE5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Default</span>
+                                            <button class="btn-text-danger">Remove</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mastercard -->
+                                    <div style="border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 48px; height: 32px; background: linear-gradient(135deg, #EB001B 0%, #F79E1B 100%); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.65rem;">MASTER</div>
+                                            <div>
+                                                <p style="margin: 0; font-weight: 500; color: var(--text-main);">•••• •••• •••• 8888</p>
+                                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Expires 09/26</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; gap: 0.5rem;">
+                                            <button class="btn-secondary">Set Default</button>
+                                            <button class="btn-text-danger">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Billing History -->
+                                <div>
+                                    <h4 style="font-size: 1rem; margin-bottom: 1rem;">Billing History</h4>
+                                    <div style="border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden;">
+                                        <table style="width: 100%; border-collapse: collapse;">
+                                            <thead style="background-color: var(--background-light);">
+                                                <tr>
+                                                    <th style="text-align: left; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Date</th>
+                                                    <th style="text-align: left; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Description</th>
+                                                    <th style="text-align: right; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Amount</th>
+                                                    <th style="text-align: right; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Status</th>
+                                                    <th style="text-align: right; padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="border-top: 1px solid var(--border-color);">
+                                                    <td style="padding: 1rem; color: var(--text-main);">Dec 1, 2024</td>
+                                                    <td style="padding: 1rem; color: var(--text-main);">Pro Plan - Monthly</td>
+                                                    <td style="padding: 1rem; text-align: right; font-weight: 500;">$49.99</td>
+                                                    <td style="padding: 1rem; text-align: right;"><span style="background: #D1FAE5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Paid</span></td>
+                                                    <td style="padding: 1rem; text-align: right;"><a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500; font-size: 0.875rem;">Download</a></td>
+                                                </tr>
+                                                <tr style="border-top: 1px solid var(--border-color);">
+                                                    <td style="padding: 1rem; color: var(--text-main);">Nov 1, 2024</td>
+                                                    <td style="padding: 1rem; color: var(--text-main);">Pro Plan - Monthly</td>
+                                                    <td style="padding: 1rem; text-align: right; font-weight: 500;">$49.99</td>
+                                                    <td style="padding: 1rem; text-align: right;"><span style="background: #D1FAE5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Paid</span></td>
+                                                    <td style="padding: 1rem; text-align: right;"><a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500; font-size: 0.875rem;">Download</a></td>
+                                                </tr>
+                                                <tr style="border-top: 1px solid var(--border-color);">
+                                                    <td style="padding: 1rem; color: var(--text-main);">Oct 1, 2024</td>
+                                                    <td style="padding: 1rem; color: var(--text-main);">Pro Plan - Monthly</td>
+                                                    <td style="padding: 1rem; text-align: right; font-weight: 500;">$49.99</td>
+                                                    <td style="padding: 1rem; text-align: right;"><span style="background: #D1FAE5; color: #059669; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Paid</span></td>
+                                                    <td style="padding: 1rem; text-align: right;"><a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500; font-size: 0.875rem;">Download</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community View -->
+                <div id="view-community" class="view-section">
+                    <div style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start;">
+                        <!-- Main Content -->
+                        <div>
+                            <!-- Create Post Card -->
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 2rem;">
+                                <div style="display: flex; gap: 1rem; align-items: start;">
+                                    <img src="https://ui-avatars.com/api/?name=Elijah+Scott&background=random" style="width: 48px; height: 48px; border-radius: 50%;">
+                                    <div style="flex: 1;">
+                                        <input type="text" placeholder="Share something with the community..." style="width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-family: var(--font-body); font-size: 0.95rem; margin-bottom: 1rem;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <button class="btn-secondary" style="padding: 0.5rem 0.75rem;"><i class="ph ph-image"></i></button>
+                                                <button class="btn-secondary" style="padding: 0.5rem 0.75rem;"><i class="ph ph-link"></i></button>
+                                                <button class="btn-secondary" style="padding: 0.5rem 0.75rem;"><i class="ph ph-smiley"></i></button>
+                                            </div>
+                                            <button class="btn-primary">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discussion Threads -->
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <div style="display: flex; gap: 1rem; align-items: start;">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Connor&background=random" style="width: 48px; height: 48px; border-radius: 50%;">
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                            <div>
+                                                <h4 style="margin: 0; font-size: 1rem; color: var(--text-main);">Sarah Connor</h4>
+                                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">2 hours ago</p>
+                                            </div>
+                                            <span style="background: #DBEAFE; color: #1E40AF; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Question</span>
+                                        </div>
+                                        <h3 style="font-size: 1.125rem; margin: 0.5rem 0; color: var(--text-main);">Best practices for inventory management?</h3>
+                                        <p style="color: var(--text-secondary); margin: 0.5rem 0 1rem 0; line-height: 1.6;">I'm looking for recommendations on how to efficiently manage inventory for a medium-sized e-commerce store. What tools or strategies do you use?</p>
+                                        <div style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.875rem; color: var(--text-secondary);">
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-arrow-fat-up"></i> 24</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-chat-circle"></i> 12 replies</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-share"></i> Share</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <div style="display: flex; gap: 1rem; align-items: start;">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Ross&background=random" style="width: 48px; height: 48px; border-radius: 50%;">
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                            <div>
+                                                <h4 style="margin: 0; font-size: 1rem; color: var(--text-main);">Mike Ross</h4>
+                                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">5 hours ago</p>
+                                            </div>
+                                            <span style="background: #FEF3C7; color: #92400E; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Discussion</span>
+                                        </div>
+                                        <h3 style="font-size: 1.125rem; margin: 0.5rem 0; color: var(--text-main);">New shipping integration launched! 🚀</h3>
+                                        <p style="color: var(--text-secondary); margin: 0.5rem 0 1rem 0; line-height: 1.6;">Just integrated FedEx API and it's working smoothly. Sharing my experience and tips for anyone looking to do the same.</p>
+                                        <div style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.875rem; color: var(--text-secondary);">
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-arrow-fat-up"></i> 48</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-chat-circle"></i> 23 replies</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-share"></i> Share</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem;">
+                                <div style="display: flex; gap: 1rem; align-items: start;">
+                                    <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=random" style="width: 48px; height: 48px; border-radius: 50%;">
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                            <div>
+                                                <h4 style="margin: 0; font-size: 1rem; color: var(--text-main);">Jane Smith</h4>
+                                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">1 day ago</p>
+                                            </div>
+                                            <span style="background: #DCFCE7; color: #166534; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Tip</span>
+                                        </div>
+                                        <h3 style="font-size: 1.125rem; margin: 0.5rem 0; color: var(--text-main);">5 ways to reduce cart abandonment rate</h3>
+                                        <p style="color: var(--text-secondary); margin: 0.5rem 0 1rem 0; line-height: 1.6;">Here are some proven strategies that helped me reduce cart abandonment by 35% in just 2 months...</p>
+                                        <div style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.875rem; color: var(--text-secondary);">
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-arrow-fat-up"></i> 67</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-chat-circle"></i> 18 replies</button>
+                                            <button style="background: none; border: none; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-share"></i> Share</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div>
+                            <!-- Active Members -->
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-main);">Active Members</h4>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="position: relative;">
+                                            <img src="https://ui-avatars.com/api/?name=Alice+Johnson&background=random" style="width: 40px; height: 40px; border-radius: 50%;">
+                                            <span style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #10B981; border: 2px solid white; border-radius: 50%;"></span>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <p style="margin: 0; font-weight: 500; font-size: 0.9rem; color: var(--text-main);">Alice Johnson</p>
+                                            <p style="margin: 0; font-size: 0.75rem; color: var(--text-secondary);">Online now</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="position: relative;">
+                                            <img src="https://ui-avatars.com/api/?name=Bob+Williams&background=random" style="width: 40px; height: 40px; border-radius: 50%;">
+                                            <span style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #10B981; border: 2px solid white; border-radius: 50%;"></span>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <p style="margin: 0; font-weight: 500; font-size: 0.9rem; color: var(--text-main);">Bob Williams</p>
+                                            <p style="margin: 0; font-size: 0.75rem; color: var(--text-secondary);">Online now</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div style="position: relative;">
+                                            <img src="https://ui-avatars.com/api/?name=Emma+Davis&background=random" style="width: 40px; height: 40px; border-radius: 50%;">
+                                            <span style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #10B981; border: 2px solid white; border-radius: 50%;"></span>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <p style="margin: 0; font-weight: 500; font-size: 0.9rem; color: var(--text-main);">Emma Davis</p>
+                                            <p style="margin: 0; font-size: 0.75rem; color: var(--text-secondary);">Online now</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Popular Tags -->
+                            <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem;">
+                                <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-main);">Popular Topics</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">Inventory</span>
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">Shipping</span>
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">Marketing</span>
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">Analytics</span>
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">SEO</span>
+                                    <span style="background: var(--background-light); color: var(--text-main); padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;">Support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial View -->
+                <div id="view-tutorial" class="view-section">
+                    <!-- Learning Paths -->
+                    <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--primary-color); border-radius: 0.5rem; padding: 2rem; margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h2 style="margin: 0 0 0.5rem 0; color: var(--text-main);">🎓 Start Your Learning Journey</h2>
+                                <p style="margin: 0; color: var(--text-secondary);">Master e-commerce management with our comprehensive video tutorials</p>
+                            </div>
+                            <button class="btn-primary">View All Courses</button>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                        <button class="btn-primary" style="white-space: nowrap;">All</button>
+                        <button class="btn-secondary" style="white-space: nowrap;">Getting Started</button>
+                        <button class="btn-secondary" style="white-space: nowrap;">Inventory</button>
+                        <button class="btn-secondary" style="white-space: nowrap;">Orders</button>
+                        <button class="btn-secondary" style="white-space: nowrap;">Marketing</button>
+                        <button class="btn-secondary" style="white-space: nowrap;">Analytics</button>
+                    </div>
+
+                    <!-- Video Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <!-- Video Card 1 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #667EEA; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">12:45</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #DBEAFE; color: #1E40AF; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Getting Started</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">Dashboard Overview & Navigation</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Learn how to navigate the dashboard and understand key metrics</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>12 min</span>
+                                    <span style="margin-left: auto;">👁 1.2k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 2 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #F093FB 0%, #F5576C 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #F093FB; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">18:30</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #FEF3C7; color: #92400E; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Orders</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">Managing Orders Efficiently</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Complete guide to processing and tracking customer orders</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>18 min</span>
+                                    <span style="margin-left: auto;">👁 2.4k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 3 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #4FACFE; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">25:15</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #DCFCE7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Inventory</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">Inventory Management Masterclass</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Advanced strategies for tracking and organizing your inventory</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>25 min</span>
+                                    <span style="margin-left: auto;">👁 3.8k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 4 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #FA709A 0%, #FEE140 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #FA709A; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">15:20</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #FEE2E2; color: #991B1B; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Marketing</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">Cart Abandonment Recovery</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Proven tactics to recover abandoned carts and boost sales</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>15 min</span>
+                                    <span style="margin-left: auto;">👁 4.1k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 5 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #30CFD0 0%, #330867 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #30CFD0; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">22:10</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #E0E7FF; color: #3730A3; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Analytics</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">Understanding Your Analytics</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Make data-driven decisions with comprehensive analytics</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>22 min</span>
+                                    <span style="margin-left: auto;">👁 2.9k views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video Card 6 -->
+                        <div style="background: var(--white); border: 2px solid var(--border-color); border-radius: 0.5rem; overflow: hidden; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <div style="position: relative; background: linear-gradient(135deg, #A8EDEA 0%, #FED6E3 100%); height: 180px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="ph ph-play-fill" style="font-size: 24px; color: #A8EDEA; margin-left: 4px;"></i>
+                                </div>
+                                <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">10:45</span>
+                            </div>
+                            <div style="padding: 1.25rem;">
+                                <span style="background: #FFE4E6; color: #9F1239; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">Tips & Tricks</span>
+                                <h3 style="font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; color: var(--text-main);">10 Time-Saving Shortcuts</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 1rem 0;">Boost your productivity with these essential keyboard shortcuts</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                    <i class="ph ph-clock"></i>
+                                    <span>10 min</span>
+                                    <span style="margin-left: auto;">👁 5.2k views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
