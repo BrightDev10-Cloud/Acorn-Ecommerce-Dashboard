@@ -1,12 +1,17 @@
 :root {
-    --primary-color: #F97316; /* Orange from image */
+    --primary-color: #F97316;
     --primary-hover: #ea580c;
+    --primary-light: #FFF7ED;
     --bg-color: #F9FAFB;
+    --background-light: #F3F4F6;
     --sidebar-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
     --text-main: #111827;
     --text-secondary: #6B7280;
     --border-color: #E5E7EB;
     --white: #FFFFFF;
+    --hover-bg: #F3F4F6;
+    --active-bg: #FFF7ED;
     
     /* Status Colors */
     --status-new-bg: #DBEAFE;
@@ -24,6 +29,37 @@
     
     --font-display: 'Lato', sans-serif;
     --font-body: 'Montserrat', sans-serif;
+}
+
+/* Dark Mode Theme */
+body.dark-mode {
+    --primary-color: #FB923C;
+    --primary-hover: #F97316;
+    --primary-light: #1F2937;
+    --bg-color: #0F172A;
+    --background-light: #1E293B;
+    --sidebar-bg: #1E293B;
+    --card-bg: #1E293B;
+    --text-main: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --border-color: #334155;
+    --white: #1E293B;
+    --hover-bg: #334155;
+    --active-bg: #2D1F0F;
+    
+    /* Dark mode status colors - adjusted for better contrast */
+    --status-new-bg: #1E3A8A;
+    --status-new-text: #93C5FD;
+    --status-intro-bg: #713F12;
+    --status-intro-text: #FDE047;
+    --status-shipped-bg: #065F46;
+    --status-shipped-text: #86EFAC;
+    --status-canceled-bg: #7F1D1D;
+    --status-canceled-text: #FCA5A5;
+    --status-rejected-bg: #7F1D1D;
+    --status-rejected-text: #FCA5A5;
+    --status-draft-bg: #334155;
+    --status-draft-text: #CBD5E1;
 }
 
 * {
@@ -279,7 +315,7 @@ body {
 }
 
 .logout-btn:hover {
-    background: #FEE2E2;
+    background: rgba(239, 68, 68, 0.1);
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
 }
@@ -321,9 +357,44 @@ body {
 
 #page-title {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-main);
+}
+
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background: var(--white);
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--background-light);
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-btn:active {
+    transform: rotate(15deg) scale(1);
+}
+
+.theme-toggle-btn i {
+    font-size: 1.25rem;
 }
 
 .btn-primary {
@@ -414,7 +485,7 @@ body {
 
 /* Table */
 .table-container {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     overflow-x: auto;
@@ -497,7 +568,7 @@ body {
 
 .action-btn:hover {
     color: var(--primary-color);
-    background-color: #FFF7ED;
+    background-color: var(--primary-light);
 }
 
 /* Pagination */
@@ -564,7 +635,7 @@ body {
 
 .details-sidebar {
     width: 320px;
-    background-color: var(--white);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -692,7 +763,7 @@ body {
 }
 
 .stat-card {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -760,10 +831,11 @@ body {
 }
 
 .chart-container {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 1.5rem;
+    padding-bottom: 2rem;
     height: 350px;
 }
 
@@ -874,13 +946,14 @@ body {
 }
 
 .settings-nav-item:hover {
-    background-color: var(--background-light);
+    background-color: var(--hover-bg);
     color: var(--text-main);
 }
 
 .settings-nav-item.active {
-    background-color: #FFF7ED; /* Light orange bg */
+    background-color: var(--active-bg);
     color: var(--primary-color);
+    font-weight: 600;
     border-left-color: var(--primary-color);
 }
 
