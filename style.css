@@ -62,6 +62,21 @@ body.dark-mode {
     --status-draft-text: #CBD5E1;
 }
 
+/* Dark Mode Specific Overrides */
+body.dark-mode .data-table tr:hover td {
+    background-color: var(--hover-bg) !important;
+}
+
+body.dark-mode .nav-item.active {
+    background-color: rgba(251, 146, 60, 0.15);
+    color: var(--primary-color);
+}
+
+body.dark-mode .settings-nav-item.active {
+    background-color: rgba(251, 146, 60, 0.15);
+    color: var(--primary-color);
+}
+
 * {
     margin: 0;
     padding: 0;

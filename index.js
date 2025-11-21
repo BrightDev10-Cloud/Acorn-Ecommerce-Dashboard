@@ -82,14 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { customer: 'Grace Hopper', products: 'Laptop Stand', value: '₦45.00', date: '5 days ago', status: 'Pending' }
         ],
         listings: [
-            { id: 'L-001', name: 'Wireless Noise Cancelling Headphones', sku: 'AUDIO-001', category: 'Electronics', price: '₦299.99', stock: 45, status: 'Active', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-002', name: 'Ergonomic Office Chair', sku: 'FURN-023', category: 'Furniture', price: '₦199.50', stock: 12, status: 'Active', image: 'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-003', name: 'Mechanical Gaming Keyboard', sku: 'TECH-104', category: 'Electronics', price: '₦129.99', stock: 0, status: 'Out of Stock', image: 'https://images.unsplash.com/photo-1587829741301-dc798b91add1?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-004', name: 'Smart Watch Series 5', sku: 'WEAR-005', category: 'Electronics', price: '₦349.00', stock: 8, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-005', name: 'Cotton Crew Neck T-Shirt', sku: 'CLOTH-089', category: 'Clothing', price: '₦24.99', stock: 150, status: 'Active', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-006', name: 'Stainless Steel Water Bottle', sku: 'HOME-012', category: 'Home', price: '₦35.00', stock: 60, status: 'Draft', image: 'https://images.unsplash.com/photo-1602143407151-01114192003f?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-007', name: 'Leather Wallet', sku: 'ACC-045', category: 'Accessories', price: '₦49.99', stock: 25, status: 'Active', image: 'https://images.unsplash.com/photo-1627123424574-181ce90b594f?q=80&w=100&auto=format&fit=crop' },
-            { id: 'L-008', name: '4K Monitor 27"', sku: 'TECH-202', category: 'Electronics', price: '₦450.00', stock: 5, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=100&auto=format&fit=crop' }
+            { id: 'L-001', name: 'Wireless Noise Cancelling Headphones', sku: 'AUDIO-001', category: 'Electronics', price: '₦299.99', stock: 45, status: 'Active', image: 'https://picsum.photos/seed/headphones/50/50' },
+            { id: 'L-002', name: 'Ergonomic Office Chair', sku: 'FURN-023', category: 'Furniture', price: '₦199.50', stock: 12, status: 'Active', image: 'https://picsum.photos/seed/chair/50/50' },
+            { id: 'L-003', name: 'Mechanical Gaming Keyboard', sku: 'TECH-104', category: 'Electronics', price: '₦129.99', stock: 0, status: 'Out of Stock', image: 'https://picsum.photos/seed/keyboard/50/50' },
+            { id: 'L-004', name: 'Smart Watch Series 5', sku: 'WEAR-005', category: 'Electronics', price: '₦349.00', stock: 8, status: 'Low Stock', image: 'https://picsum.photos/seed/watch/50/50' },
+            { id: 'L-005', name: 'Cotton Crew Neck T-Shirt', sku: 'CLOTH-089', category: 'Clothing', price: '₦24.99', stock: 150, status: 'Active', image: 'https://picsum.photos/seed/tshirt/50/50' },
+            { id: 'L-006', name: 'Stainless Steel Water Bottle', sku: 'HOME-012', category: 'Home', price: '₦35.00', stock: 60, status: 'Draft', image: 'https://picsum.photos/seed/bottle/50/50' },
+            { id: 'L-007', name: 'Leather Wallet', sku: 'ACC-045', category: 'Accessories', price: '₦49.99', stock: 25, status: 'Active', image: 'https://picsum.photos/seed/wallet/50/50' },
+            { id: 'L-008', name: '4K Monitor 27"', sku: 'TECH-202', category: 'Electronics', price: '₦450.00', stock: 5, status: 'Low Stock', image: 'https://picsum.photos/seed/monitor/50/50' }
         ],
         admins: [
             { id: 'A-001', name: 'Elijah Scott', role: 'Super Admin', email: 'elijahscott@gmail.com', lastActive: 'Now', status: 'Active' },
