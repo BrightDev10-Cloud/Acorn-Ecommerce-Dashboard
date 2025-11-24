@@ -2,7 +2,7 @@
 
 A modern, feature-rich e-commerce dashboard built with vanilla HTML, CSS, and JavaScript. This comprehensive admin panel provides merchants with powerful tools to manage their online store, track analytics, and engage with their community.
 
-![Acorn Dashboard](assets/Order%20management.png)
+![alt text](assets/Acorn_Thumbnail.png)
 
 ## 🌟 Features
 
